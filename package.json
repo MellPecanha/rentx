@@ -1,0 +1,15 @@
+{
+  "name": "rentx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:MellPecanha/rentx.git",
+  "author": "Mell Peçanha",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1",
+    "typescript": "^4.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
+  }
+}
