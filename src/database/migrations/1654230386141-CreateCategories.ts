@@ -20,8 +20,8 @@ export class CreateCategories1654230386141 implements MigrationInterface {
                         name: 'description',
                         type: 'varchar',
                     },
-                {
-                        name: 'created_ad',
+                    {
+                        name: 'created_at',
                         type: 'timestamp',
                         default: 'now()',
                     },
