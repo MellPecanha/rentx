@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import {createConnection, getConnectionOptions} from 'typeorm';
 
 interface IOptions {
