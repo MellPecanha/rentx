@@ -28,6 +28,10 @@ async function ensureAuthenticated(req: Request, res: Response, next: NextFuncti
             throw new AppError(`User ${user_id} does not exist`, 401);
         }
 
+        req.user = {
+            id: user_id,
+        }
+
         next();
     } catch (err) {
         throw new AppError(`Invalid token`, 401);
