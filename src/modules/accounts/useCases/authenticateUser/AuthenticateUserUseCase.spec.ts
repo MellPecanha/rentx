@@ -1,6 +1,6 @@
-import {AppError} from '../../../../errors/AppError';
-import {ICreateUserDTO} from '../../dtos/ICreateUserDTO';
-import {UsersRepositoryInMemory} from '../../repositories/in-memory/UsersRepositoryInMemory';
+import {AppError} from '@errors/AppError';
+import {ICreateUserDTO} from '@modules/accounts/dtos/ICreateUserDTO';
+import {UsersRepositoryInMemory} from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import {CreateUserUseCase} from '../createUser/CreateUserUseCase';
 import {AuthenticateUserUseCase} from './AuthenticateUserUseCase'
 
@@ -36,10 +36,10 @@ describe('authenticate user', () => {
     it('should not be able to authenticate a non-existent user', () => {
         expect(async () => {
             authenticateUserUseCase.execute({
-              email: 'name@test.com',
-              password: '1234',
+                email: 'name@test.com',
+                password: '1234',
             });
-        }).rejects.toBeInstanceOf(AppError);
+        }).rejects.toBeInstanceOf(new AppError('Email or password incorrect', 401));
     });
 
 
@@ -58,6 +58,6 @@ describe('authenticate user', () => {
                 email: user.email,
                 password: 'incorrect password',
             });
-        }).rejects.toBeInstanceOf(AppError);
+        }).rejects.toBeInstanceOf(new AppError('Email or password incorrect', 401));
     });
 });

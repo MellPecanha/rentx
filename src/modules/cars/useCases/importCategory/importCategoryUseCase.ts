@@ -1,7 +1,7 @@
 import fs from 'fs';
 import {parse as csvParse} from 'csv-parse';
-import {ICategoriesRepository} from '../../repositories/ICategoriesRepository';
 import {inject, injectable} from 'tsyringe';
+import {ICategoriesRepository} from '@modules/cars/repositories/ICategoriesRepository';
 
 interface IImportCategory {
     name: string;
@@ -36,7 +36,7 @@ class ImportCategoryUseCase {
                 .on('error', (err) => {
                     rej(err);
                 })
-    });
+        });
     }
 
     async execute(file: Express.Multer.File): Promise<void> {
