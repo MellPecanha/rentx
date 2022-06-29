@@ -15,6 +15,7 @@ export class CreateCars1656192666976 implements MigrationInterface {
                     {
                         name: 'name',
                         type: 'varchar',
+                        isUnique: true,
                     },
                     {
                         name: 'description',
@@ -32,6 +33,7 @@ export class CreateCars1656192666976 implements MigrationInterface {
                     {
                         name: 'license_plate',
                         type: 'varchar',
+                        isUnique: true,
                     },
                     {
                         name: 'fine_amount',
@@ -44,10 +46,14 @@ export class CreateCars1656192666976 implements MigrationInterface {
                     {
                         name: 'category_id',
                         type: 'uuid',
-                        isNullable: true,
                     },
                     {
                         name: 'created_at',
+                        type: 'timestamp',
+                        default: 'now()',
+                    },
+                    {
+                        name: 'updated_at',
                         type: 'timestamp',
                         default: 'now()',
                     },
@@ -60,7 +66,7 @@ export class CreateCars1656192666976 implements MigrationInterface {
                         columnNames: ['category_id'],
                         onDelete: 'SET NULL',
                         onUpdate: 'SET NULL',
-                    }
+                    },
                 ],
             })
         );
