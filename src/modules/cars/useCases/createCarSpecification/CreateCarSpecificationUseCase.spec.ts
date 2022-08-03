@@ -1,7 +1,9 @@
-import {SpecificationRepositoryInMemory} from '@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory';
 import {CarsRepositoryInMemory} from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
-import {CreateCarSpecificationUseCase} from './CreateCarSpecificationUseCase';
+import {SpecificationRepositoryInMemory} from '@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory';
+
 import {AppError} from '@shared/errors/AppError';
+
+import {CreateCarSpecificationUseCase} from './CreateCarSpecificationUseCase';
 
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
@@ -22,7 +24,10 @@ describe('create car specification', () => {
             const car_id = '123';
             const specifications_id = ['321'];
 
-            await createCarSpecificationUseCase.execute({car_id, specifications_id});
+            await createCarSpecificationUseCase.execute({
+                car_id,
+                specifications_id,
+            });
         }).rejects.toBeInstanceOf(AppError);
     });
 
@@ -46,7 +51,7 @@ describe('create car specification', () => {
 
         const specificationsCars = await createCarSpecificationUseCase.execute({
             car_id: car.id,
-            specifications_id
+            specifications_id,
         });
 
         expect(specificationsCars).toHaveProperty('specifications');

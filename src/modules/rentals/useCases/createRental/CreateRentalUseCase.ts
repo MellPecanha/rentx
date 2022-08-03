@@ -1,8 +1,9 @@
 import {Rental} from '@modules/rentals/infra/typeorm/entities/Rental';
 import {IRentalsRepository} from '@modules/rentals/repositories/IRentalsRepository';
-import {AppError} from '@shared/errors/AppError';
-import {IDateProvider} from '@shared/container/providers/dateProvider/IDateProvider';
 import {inject, injectable} from 'tsyringe';
+
+import {IDateProvider} from '@shared/container/providers/dateProvider/IDateProvider';
+import {AppError} from '@shared/errors/AppError';
 
 interface IRequest {
     user_id: string;
@@ -27,15 +28,18 @@ class CreateRentalUseCase {
     }: IRequest): Promise<Rental> {
         const minimumHours = 24;
 
-        const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(car_id);
+        const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
+            car_id,
+        );
 
-        if(carUnavailable) {
+        if (carUnavailable) {
             throw new AppError('car is unavailable');
         }
 
-        const rentalOpenToUse = await this.rentalsRepository.findOpenRentalByUser(user_id);
+        const rentalOpenToUse =
+            await this.rentalsRepository.findOpenRentalByUser(user_id);
 
-        if(rentalOpenToUse) {
+        if (rentalOpenToUse) {
             throw new AppError('there is a rental in progress for user');
         }
 
@@ -46,7 +50,7 @@ class CreateRentalUseCase {
             expected_return_date,
         );
 
-        if(compare < minimumHours) {
+        if (compare < minimumHours) {
             throw new AppError('invalid return time!');
         }
 

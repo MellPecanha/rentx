@@ -1,14 +1,22 @@
 import {Specification} from '@modules/cars/infra/typeorm/entities/Specification';
-import {ICreateSpecificationDTO, ISpecificationRepository} from '../ISpecificationRepository';
+
+import {
+    ICreateSpecificationDTO,
+    ISpecificationRepository,
+} from '../ISpecificationRepository';
 
 class SpecificationRepositoryInMemory implements ISpecificationRepository {
     specifications: Specification[] = [];
 
-    async create({name, description}: ICreateSpecificationDTO): Promise<Specification> {
+    async create({
+        name,
+        description,
+    }: ICreateSpecificationDTO): Promise<Specification> {
         const specification = new Specification();
 
         Object.assign(specification, {
-            name, description
+            name,
+            description,
         });
 
         this.specifications.push(specification);
@@ -17,11 +25,15 @@ class SpecificationRepositoryInMemory implements ISpecificationRepository {
     }
 
     async findByName(name: string): Promise<Specification> {
-        return this.specifications.find((specification) => specification.name === name);
+        return this.specifications.find(
+            specification => specification.name === name,
+        );
     }
 
     async findByIds(ids: string[]): Promise<Specification[]> {
-        return this.specifications.filter((specification) => ids.includes(specification.id));
+        return this.specifications.filter(specification =>
+            ids.includes(specification.id),
+        );
     }
 }
 

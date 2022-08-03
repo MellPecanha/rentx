@@ -8,7 +8,9 @@ class CreateCarSpecificationController {
         const {id} = req.params;
         const {specifications_id} = req.body;
 
-        const createCarSpecificationUseCase = container.resolve(CreateCarSpecificationUseCase);
+        const createCarSpecificationUseCase = container.resolve(
+            CreateCarSpecificationUseCase,
+        );
 
         const cars = await createCarSpecificationUseCase.execute({
             car_id: id,

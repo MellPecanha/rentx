@@ -1,6 +1,6 @@
+import {RentalsRepositoryInMemory} from '@modules/rentals/infra/typeorm/repositories/in-memory/RentalsRepositoryInMemory';
 import dayjs from 'dayjs';
 
-import {RentalsRepositoryInMemory} from '@modules/rentals/infra/typeorm/repositories/in-memory/RentalsRepositoryInMemory';
 import {DayJsDateProvider} from '@shared/container/providers/dateProvider/implementations/DayJsDateProvider';
 import {AppError} from '@shared/errors/AppError';
 
@@ -16,7 +16,10 @@ describe('create rental', () => {
     beforeEach(() => {
         rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
         dayJsDateProvider = new DayJsDateProvider();
-        createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryInMemory, dayJsDateProvider);
+        createRentalUseCase = new CreateRentalUseCase(
+            rentalsRepositoryInMemory,
+            dayJsDateProvider,
+        );
     });
 
     it('should be able to create a new rental', async () => {
@@ -29,7 +32,6 @@ describe('create rental', () => {
         expect(rental).toHaveProperty('id');
         expect(rental).toHaveProperty('start_date');
     });
-
 
     it('should not be able to create a new rental if there is another open to the same user', async () => {
         expect(async () => {

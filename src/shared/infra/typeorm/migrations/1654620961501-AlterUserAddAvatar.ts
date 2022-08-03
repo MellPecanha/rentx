@@ -1,7 +1,6 @@
-import {MigrationInterface, QueryRunner, TableColumn} from "typeorm";
+import {MigrationInterface, QueryRunner, TableColumn} from 'typeorm';
 
 export class AlterUserAddAvatar1654620961501 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumn(
             'users',
@@ -9,12 +8,11 @@ export class AlterUserAddAvatar1654620961501 implements MigrationInterface {
                 name: 'avatar',
                 type: 'varchar',
                 isNullable: true,
-            })
+            }),
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropColumn('users', 'avatar');
     }
-
 }

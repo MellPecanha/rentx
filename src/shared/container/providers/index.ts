@@ -5,5 +5,5 @@ import {DayJsDateProvider} from './dateProvider/implementations/DayJsDateProvide
 
 container.registerSingleton<IDateProvider>(
     'DayJsDateProvider',
-    DayJsDateProvider
+    DayJsDateProvider,
 );

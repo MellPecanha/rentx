@@ -1,7 +1,7 @@
-import fs from 'fs';
-import {parse as csvParse} from 'csv-parse';
-import {inject, injectable} from 'tsyringe';
 import {ICategoriesRepository} from '@modules/cars/repositories/ICategoriesRepository';
+import {parse as csvParse} from 'csv-parse';
+import fs from 'fs';
+import {inject, injectable} from 'tsyringe';
 
 interface IImportCategory {
     name: string;
@@ -12,7 +12,7 @@ interface IImportCategory {
 class ImportCategoryUseCase {
     constructor(
         @inject('CategoriesRepository')
-        private categoriesRepository: ICategoriesRepository
+        private categoriesRepository: ICategoriesRepository,
     ) {}
 
     loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
@@ -25,7 +25,7 @@ class ImportCategoryUseCase {
             stream.pipe(parseFile);
 
             parseFile
-                .on('data', async (line) => {
+                .on('data', async line => {
                     const [name, description] = line;
                     categories.push({name, description});
                 })
@@ -33,21 +33,23 @@ class ImportCategoryUseCase {
                     fs.promises.unlink(file.path);
                     res(categories);
                 })
-                .on('error', (err) => {
+                .on('error', err => {
                     rej(err);
-                })
+                });
         });
     }
 
     async execute(file: Express.Multer.File): Promise<void> {
         const categories = await this.loadCategories(file);
 
-        categories.map(async (category) => {
+        categories.map(async category => {
             const {name, description} = category;
 
-            const existCategory = await this.categoriesRepository.findByName(name);
+            const existCategory = await this.categoriesRepository.findByName(
+                name,
+            );
 
-            if(!existCategory) {
+            if (!existCategory) {
                 await this.categoriesRepository.create({name, description});
             }
         });

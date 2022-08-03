@@ -1,8 +1,10 @@
-import {AppError} from '@shared/errors/AppError';
 import {ICreateUserDTO} from '@modules/accounts/dtos/ICreateUserDTO';
 import {UsersRepositoryInMemory} from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
+
+import {AppError} from '@shared/errors/AppError';
+
 import {CreateUserUseCase} from '../createUser/CreateUserUseCase';
-import {AuthenticateUserUseCase} from './AuthenticateUserUseCase'
+import {AuthenticateUserUseCase} from './AuthenticateUserUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -11,7 +13,9 @@ let createUserUseCase: CreateUserUseCase;
 describe('authenticate user', () => {
     beforeEach(() => {
         usersRepositoryInMemory = new UsersRepositoryInMemory();
-        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepositoryInMemory);
+        authenticateUserUseCase = new AuthenticateUserUseCase(
+            usersRepositoryInMemory,
+        );
         createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
     });
 
@@ -34,12 +38,13 @@ describe('authenticate user', () => {
     });
 
     it('should not be able to authenticate a non-existent user', async () => {
-        await expect(authenticateUserUseCase.execute({
-            email: 'name@test.com',
-            password: '1234',
-        })).rejects.toBeInstanceOf(AppError);
+        await expect(
+            authenticateUserUseCase.execute({
+                email: 'name@test.com',
+                password: '1234',
+            }),
+        ).rejects.toBeInstanceOf(AppError);
     });
-
 
     it('should not be able to authenticate with incorrect password', async () => {
         const user: ICreateUserDTO = {
@@ -51,9 +56,11 @@ describe('authenticate user', () => {
 
         await createUserUseCase.execute(user);
 
-        await expect(authenticateUserUseCase.execute({
-            email: user.email,
-            password: 'incorrect password',
-        })).rejects.toBeInstanceOf(AppError);
+        await expect(
+            authenticateUserUseCase.execute({
+                email: user.email,
+                password: 'incorrect password',
+            }),
+        ).rejects.toBeInstanceOf(AppError);
     });
 });

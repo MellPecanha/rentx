@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const deleteFile = async(fileName: string) => {
+const deleteFile = async (fileName: string) => {
     try {
         await fs.promises.stat(fileName);
     } catch (err) {
@@ -8,6 +8,6 @@ const deleteFile = async(fileName: string) => {
     }
 
     await fs.promises.unlink(fileName);
-}
+};
 
 export {deleteFile};

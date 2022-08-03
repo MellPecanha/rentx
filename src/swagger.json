@@ -11,7 +11,9 @@
     "paths": {
         "/categories": {
             "post": {
-                "tags": ["Category"],
+                "tags": [
+                    "Category"
+                ],
                 "summary": "Create a category",
                 "description": "Create a new category",
                 "requestBody": {
@@ -45,7 +47,9 @@
                 }
             },
             "get": {
-                "tags": ["Category"],
+                "tags": [
+                    "Category"
+                ],
                 "summary": "List all categories",
                 "description": "List all categories",
                 "responses": {
@@ -75,7 +79,9 @@
         },
         "/categories/import": {
             "post": {
-                "tags": ["Category"],
+                "tags": [
+                    "Category"
+                ],
                 "summary": "Upload a new category",
                 "description": "Upload a new category",
                 "requestBody": {
@@ -102,7 +108,9 @@
         },
         "/specifications": {
             "post": {
-                "tags": ["Specifications"],
+                "tags": [
+                    "Specifications"
+                ],
                 "summary": "Create a specification",
                 "description": "Create a new specification",
                 "requestBody": {

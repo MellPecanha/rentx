@@ -7,7 +7,7 @@ interface ICarsRepository {
     findAvailable(
         name?: string,
         brand?: string,
-        category_id?: string
+        category_id?: string,
     ): Promise<Car[]>;
     findById(id: string): Promise<Car>;
 }

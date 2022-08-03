@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {container} from 'tsyringe';
+
 import {CreateUserUseCase} from './CreateUserUseCase';
 
 class CreateUserController {
@@ -8,7 +9,12 @@ class CreateUserController {
 
         const createUserUseCase = container.resolve(CreateUserUseCase);
 
-        await createUserUseCase.execute({name, email, password, driver_license});
+        await createUserUseCase.execute({
+            name,
+            email,
+            password,
+            driver_license,
+        });
 
         return res.status(201).send();
     }

@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from 'typeorm';
 
-export class CreateSpecificationsCars1658416533859 implements MigrationInterface {
-
+export class CreateSpecificationsCars1658416533859
+    implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -9,16 +9,16 @@ export class CreateSpecificationsCars1658416533859 implements MigrationInterface
                 columns: [
                     {
                         name: 'car_id',
-                        type: 'uuid'
+                        type: 'uuid',
                     },
                     {
                         name: 'specification_id',
-                        type: 'uuid'
+                        type: 'uuid',
                     },
                     {
                         name: 'created_at',
                         type: 'timestamp',
-                        default: 'now()'
+                        default: 'now()',
                     },
                 ],
             }),
@@ -54,13 +54,10 @@ export class CreateSpecificationsCars1658416533859 implements MigrationInterface
             'specifications_cars',
             'FKCarSpecification',
         ),
-
             await queryRunner.dropForeignKey(
                 'specifications_cars',
                 'FKSpecificationCar',
             ),
-
-            await queryRunner.dropTable('specifications_cars')
+            await queryRunner.dropTable('specifications_cars');
     }
-
 }

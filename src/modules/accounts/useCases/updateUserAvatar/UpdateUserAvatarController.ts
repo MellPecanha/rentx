@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {container} from 'tsyringe';
+
 import {UpdateUserAvatarUseCase} from './UpdateUseAvatarUseCase';
 
 class UpdateUserAvatarController {
@@ -8,7 +9,9 @@ class UpdateUserAvatarController {
 
         const avatar_file = req.file.filename;
 
-        const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
+        const updateUserAvatarUseCase = container.resolve(
+            UpdateUserAvatarUseCase,
+        );
 
         await updateUserAvatarUseCase.execute({user_id: id, avatar_file});
 

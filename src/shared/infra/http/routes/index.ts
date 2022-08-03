@@ -21,4 +21,4 @@ router.use('/rentals', rentalsRoutes);
 
 router.use(authenticateRoutes);
 
-export {router}
+export {router};

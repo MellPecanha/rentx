@@ -1,6 +1,7 @@
 import {ICreateCarDTO} from '@modules/cars/dtos/ICreateCarDTO';
 import {ICarsRepository} from '@modules/cars/repositories/ICarsRepository';
 import {getRepository, Repository} from 'typeorm';
+
 import {Car} from '../entities/Car';
 
 class CarsRepository implements ICarsRepository {
@@ -31,7 +32,7 @@ class CarsRepository implements ICarsRepository {
             category_id,
             specifications,
             id,
-        })
+        });
 
         await this.repository.save(car);
 
@@ -44,20 +45,24 @@ class CarsRepository implements ICarsRepository {
         return car;
     }
 
-    async findAvailable(name?: string, brand?: string, category_id?: string): Promise<Car[]> {
+    async findAvailable(
+        name?: string,
+        brand?: string,
+        category_id?: string,
+    ): Promise<Car[]> {
         const carsQuery = this.repository
             .createQueryBuilder('c')
             .where('available = :available', {available: true});
 
-        if(name) {
+        if (name) {
             carsQuery.andWhere('name = :name', {name});
         }
 
-        if(brand) {
+        if (brand) {
             carsQuery.andWhere('brand = :brand', {brand});
         }
 
-        if(category_id) {
+        if (category_id) {
             carsQuery.andWhere('category_id = :category_id', {category_id});
         }
 
