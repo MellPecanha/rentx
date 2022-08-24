@@ -21,10 +21,10 @@ describe('authenticate user', () => {
 
     it('should be able to authenticate an user', async () => {
         const user: ICreateUserDTO = {
-            name: 'testname',
+            name: 'test name',
             email: 'name@test.com',
             password: '1234',
-            driver_license: 'testlicense',
+            driver_license: 'test license',
         };
 
         await createUserUseCase.execute(user);
@@ -43,15 +43,15 @@ describe('authenticate user', () => {
                 email: 'name@test.com',
                 password: '1234',
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(new AppError('Email or password incorrect!'));
     });
 
     it('should not be able to authenticate with incorrect password', async () => {
         const user: ICreateUserDTO = {
-            name: 'testname',
+            name: 'test name',
             email: 'name@test.com',
             password: '1234',
-            driver_license: 'testlicense',
+            driver_license: 'test license',
         };
 
         await createUserUseCase.execute(user);
@@ -61,6 +61,6 @@ describe('authenticate user', () => {
                 email: user.email,
                 password: 'incorrect password',
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(new AppError('Email or password incorrect!'));
     });
 });
