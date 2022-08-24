@@ -198,6 +198,15 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/definitions/Car"
+                            },
+                            "example": {
+                                "name": "Name sample",
+                                "description": "Description sample",
+                                "daily_rate": 100,
+                                "license_plate": "XXX-1234",
+                                "fine_amount": 100,
+                                "brand": "Brand sample",
+                                "category_id": "category_id sample"
                             }
                         }
                     }
