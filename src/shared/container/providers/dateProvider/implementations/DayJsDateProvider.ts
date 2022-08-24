@@ -14,7 +14,7 @@ class DayJsDateProvider implements IDateProvider {
     }
 
     convertToUTC(date: Date): string {
-        return dayjs(date).utc().local().format('DD-MM-YYYY');
+        return dayjs(date).utc().local().format();
     }
 
     dateNow(): Date {
