@@ -1,7 +1,7 @@
 import auth from '@config/auth';
 import {IUsersTokensRepository} from '@modules/accounts/repositories/IUsersTokensRepository';
 import {sign, verify} from 'jsonwebtoken';
-import {inject} from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
 import {DayJsDateProvider} from '@shared/container/providers/dateProvider/implementations/DayJsDateProvider';
 import {AppError} from '@shared/errors/AppError';
@@ -11,6 +11,7 @@ interface IPayload {
     email: string;
 }
 
+@injectable()
 class RefreshTokenUseCase {
     constructor(
         @inject('UsersTokensRepository')
@@ -21,7 +22,7 @@ class RefreshTokenUseCase {
     ) {}
 
     async execute(token: string): Promise<string> {
-        const {sub, email} = verify(
+        const {email, sub} = verify(
             token,
             auth.secret_refresh_token,
         ) as IPayload;
@@ -41,7 +42,7 @@ class RefreshTokenUseCase {
         await this.usersTokensRepository.deleteById(userToken.id);
 
         const refresh_token = sign({email}, auth.secret_refresh_token, {
-            subject: email,
+            subject: sub,
             expiresIn: auth.expires_in_refresh_token,
         });
 
