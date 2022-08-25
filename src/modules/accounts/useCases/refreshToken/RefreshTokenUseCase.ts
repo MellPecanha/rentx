@@ -3,7 +3,7 @@ import {IUsersTokensRepository} from '@modules/accounts/repositories/IUsersToken
 import {sign, verify} from 'jsonwebtoken';
 import {inject, injectable} from 'tsyringe';
 
-import {DayJsDateProvider} from '@shared/container/providers/dateProvider/implementations/DayJsDateProvider';
+import {IDateProvider} from '@shared/container/providers/dateProvider/IDateProvider';
 import {AppError} from '@shared/errors/AppError';
 
 interface IPayload {
@@ -18,7 +18,7 @@ class RefreshTokenUseCase {
         private usersTokensRepository: IUsersTokensRepository,
 
         @inject('DayJsDateProvider')
-        private dateProvider: DayJsDateProvider,
+        private dateProvider: IDateProvider,
     ) {}
 
     async execute(token: string): Promise<string> {
