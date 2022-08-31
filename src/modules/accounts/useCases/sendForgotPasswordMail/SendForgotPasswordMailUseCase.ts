@@ -6,6 +6,7 @@ import {v4 as uuidV4} from 'uuid';
 
 import {IDateProvider} from '@shared/container/providers/dateProvider/IDateProvider';
 import {IMailProvider} from '@shared/container/providers/mailProvider/IMailProvider';
+import {AppError} from '@shared/errors/AppError';
 
 @injectable()
 class SendForgotPasswordMailUseCase {
@@ -36,7 +37,7 @@ class SendForgotPasswordMailUseCase {
         );
 
         if (!user) {
-            throw new Error('User does not exist!');
+            throw new AppError('User does not exists!');
         }
 
         const token = uuidV4();
