@@ -32,7 +32,7 @@ describe('create category controller', () => {
             .post('/sessions')
             .send({email: 'admin@rentx.com', password: 'admin'});
 
-        const {refresh_token} = resToken.body;
+        const {token} = resToken.body;
 
         const res = await request(app)
             .post('/categories')
@@ -41,7 +41,7 @@ describe('create category controller', () => {
                 description: 'category supertest',
             })
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(res.status).toBe(201);
@@ -52,7 +52,7 @@ describe('create category controller', () => {
             .post('/sessions')
             .send({email: 'admin@rentx.com', password: 'admin'});
 
-        const {refresh_token} = resToken.body;
+        const {token} = resToken.body;
 
         const res = await request(app)
             .post('/categories')
@@ -61,7 +61,7 @@ describe('create category controller', () => {
                 description: 'category supertest',
             })
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(res.status).toBe(400);
