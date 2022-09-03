@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import upload from '@config/upload';
 import 'dotenv/config';
 import express, {NextFunction, Request, Response} from 'express';
 import 'express-async-errors';
@@ -15,6 +16,9 @@ createConnection();
 const app = express();
 
 app.use(express.json());
+
+app.use('/avatar', express.static(`${upload.tmpFolder}/avatar`));
+app.use('/cars', express.static(`${upload.tmpFolder}/cars`));
 
 app.use(router);
 
